@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }) {
     localStorage.setItem("subTotal", JSON.stringify(currSubTotal))
 
   }
-  const addToCart = (itemId, itemName, itemPrice, itemQty, itemColor, itemCategory, itemSize) => {
+  const addToCart = (itemId, itemName, itemPrice, itemQty, itemColor, itemCategory, itemSize, imgPath) => {
     const newCartItem = {};
     let isPresent = false;
     const newCart = [];
@@ -91,7 +91,8 @@ function MyApp({ Component, pageProps }) {
         itemQty,
         itemColor,
         itemCategory,
-        itemSize
+        itemSize,
+        imgPath
       };
       newCart = [...cart, newCartItem];
       setCart(newCart);
@@ -151,7 +152,7 @@ function MyApp({ Component, pageProps }) {
     setIsQtyChange(true);
   }
   return <>
-    <AppContext.Provider value={{ addToCart, cart, clearCart, increaseQty, decreaseQty, subTotal, isLogin, userData, handleLogout, setIsLogin }}>
+    <AppContext.Provider value={{ addToCart, cart, clearCart, increaseQty, decreaseQty, subTotal, isLogin, userData, handleLogout, setIsLogin, setCart }}>
       <Navbar />
       <Component {...pageProps} />
       <Footer />

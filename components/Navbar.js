@@ -41,7 +41,7 @@ const Navbar = () => {
                     <Link href="/Contact" className="text-xl  text-emerald-900">
                         <span className="text-sm lg:text-xl  text-emerald-900 hover:cursor-pointer hover:text-emerald-700  transition-all delay-150 ease-in px-2 py-1" >Contact</span>
                     </Link>
-                    {isLogin ? <Dropdown label={<i className="ri-user-line"></i>} class="text-sm lg:text-xl ring-1 ring-emerald-400 text-emerald-900 font-bold hover:cursor-pointer hover:text-emerald-100  transition-all delay-150 ease-in  flex item-center  bg-emerald-300 rounded hover:bg-emerald-400 mr-2" >
+                    {isLogin ? <Dropdown label={<i className="ri-user-line"></i>} className="text-sm lg:text-xl ring-1 ring-emerald-400 text-emerald-900 font-bold hover:cursor-pointer hover:text-emerald-100  transition-all delay-150 ease-in  flex item-center  bg-emerald-300 rounded hover:bg-emerald-400 mr-2" >
                         <Tooltip
                             content={userData.userName}
                             placement='bottom'
@@ -55,7 +55,9 @@ const Navbar = () => {
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>
+                            <Link href="/Order">
                             Orders
+                            </Link>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             Settings

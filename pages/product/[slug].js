@@ -129,7 +129,7 @@ const Slug = ({ product }) => {
                 <span className="title-font font-medium text-2xl text-gray-900">₹{product.price}.00</span>
                 <button className="flex ml-auto md:ml-4 text-white bg-green-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-green-600 rounded">Buy Now</button>
                 <button className={`flex ml-auto md:ml-4 text-white bg-green-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-green-600 rounded ${isLogin ? '' : "pointer-events-none opacity-40"}` } onClick={() => {
-                  addToCart(product._id, product.productName, product.price,1, product.color, product.category, selectedOption);
+                  addToCart(product._id, product.productName, product.price,1, product.color, product.category, selectedOption, product.imgPath);
                   notify();
                 }}>Add to Cart</button>
                 <ToastContainer autoClose={1000} />

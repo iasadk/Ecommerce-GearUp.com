@@ -1,35 +1,61 @@
-import {Schema,model, models} from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 
 const OrderSchema = new Schema({
-    UserId : {
+    fullName: {
         type: String,
-        require : true,
+        require: true,
     },
-    products : [{
-        productId : {type : String, required:true},
-        quantity : {type: Number, required: true}
+    userEmail: {
+        type: String,
+        require: true,
+    },
+    products: [{
+        productId: { type: String, required: true },
+        quantity: { type: Number, required: true },
+        price : {type: Number, required: true},
+        size : { type: String, required: true },
+        color : { type: String, required: true },
+        imgPath : { type: String, required: true },
+        productName: { type: String, required: true }
+
     }],
-    address : {
+    address: {
         type: String,
-        require : true,
+        require: true,
     },
-    amount : {
+    amount: {
         type: Number,
-        require : true,
+        require: true,
     },
-    paymentMethod : {
-        type : String,
-        default : "COD",
+    pincode: {
+        type: String,
+        require: true
     },
-    status : {
+    state: {
+        type: String,
+        require: true
+    },
+    district: {
+        type: String,
+        require: true
+    },
+    paymentMethod: {
+        type: String,
+        default: "COD",
+    },
+    status: {
         type: String,
         default: "Pending",
+    },
+    estimatedTime  :{
+        type: String,
+        default: () => new Date(+new Date() + 2*24*60*60*1000),
     }
-},{timestamps:true})
+}, { timestamps: true })
 
 //Model for our schema: 
-const Order = models.Order || model('Order',OrderSchema)
+const Order = models.Order || model('Order', OrderSchema)
 
 
 

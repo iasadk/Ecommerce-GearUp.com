@@ -1,101 +1,53 @@
 import Router from 'next/router'
-import React, { useEffect } from 'react'
-
+import React, { useContext, useEffect, useState } from 'react'
+import OrderWrapper from '../components/OrderWrapper'
+import { AppContext } from './_app'
+var jwt = require('jsonwebtoken');
 const Order = () => {
+  const { userData } = useContext(AppContext)
+  const [orders, setOrders] = useState([])
+
   useEffect(() => {
 
     if (!sessionStorage.getItem("token")) {
       Router.push("http://localhost:3000/Login")
       return;
     }
+    else {
+      let token = sessionStorage.getItem("token")
+      const userDataObj = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET_KEY_JWT);
+
+      //POST request with body equal on data in JSON format
+      fetch('http://localhost:3000/api/getOrders', {
+        method: 'POST',
+        "headers"  :{
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({ "email": userDataObj.email }),
+      })
+        .then((response) => response.json())
+        //Then with the data from the response in JSON...
+        .then((data) => {
+          setOrders(data)
+        })
+        //Then with the error genereted...
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
+    }
+
   }, [])
   return (
-    <div className='bg-slate-100 p-4 my-12 w-full md:w-8/12 transition-all delay-100 ease-in-out mx-auto'>
-      <div className=' mt-5 text-lg md:text-2xl font-semibold text-gray-400 flex justify-between'>
-        <p>Order ID : 33345487812</p>
-        <button className='flex gap-1 text-sm bg-emerald-300 text-black items-center px-2 rounded-md hover:bg-emerald-400'>
-          <i className="ri-map-pin-line"></i> <p>Track</p>
-        </button>
-      </div>
-      <div className="flex flex-col md:flex-row justify-between text-sm mt-4">
-        <div className='flex gap-1 mb-2'>
-          <p>Order date:</p><span className='font-semibold text-md'>Feb 16, 2022</span>
-        </div>
-        <div className=''>
-          <p className='flex items-center text-green-500'>Estimated Delivery: <span className='ml-1 font-semibold'>Feb 19, 2022</span><i className="ri-plane-line text-md ml-2"></i> </p>
-        </div>
-      </div>
+    <div>
+      {orders.length!==0 && orders.orders.map((order,idx)=>{
+        return(
+          <OrderWrapper key={idx} order={order}/>
+        )
+      })}
 
-      <div className='my-12'>
-        <div className='flex justify-between bg-slate-200 rounded my-4'>
-          <div className='flex gap-2 my-4 '>
-            <img src="https://assets.bonkerscorner.com/uploads/2022/03/08171522/Bonkerscorner_black_ribbed_t-shirt_167-1200x1800.jpg" alt="Tshirt black" className='w-1/4 md:w-1/6' />
-            <div className='text-slate-500 flex flex-col gap-3 md:justify-end'>
-              <p className='text-lg font-normal '>Plain T-shirt</p>
-              <div className='flex gap-2 text-xs font-thin'>
-                <p>Black</p>
-                <p>XL</p>
-                <p>Male</p>
-              </div>
-            </div>
-          </div>
-          <div className='flex flex-col text-md w-[230px] justify-start md:justify-end items-start  my-4'>
-            <p className='md:text-lg font-bold'>₹ 299</p>
-            <div className='text-sm mt-2'>
-              <p className='text-slate-500 font-thin'>Qty : 1</p>
-            </div>
-          </div>
-        </div>
+      {orders.length==0 && <div>No order is placed from this account</div>}
 
-      </div>
-
-      <div className='grid grid-cols-2 row-auto gap-y-3'>
-        <div className='payment'>
-          <h1 className='text-slate-600 flex items-center gap-1 font-semibold lg:text-lg'>Payment <i className="ri-currency-line"></i></h1>
-          <div className='mt-2'>
-            <p className='text-md font-thin lg:text-base'>**56 <i className="ri-visa-line text-lg"></i></p>
-          </div>
-        </div>
-
-        <div>
-          <h1 className='text-slate-600 flex items-center gap-1 font-semibold lg:text-lg'>Delivery <i className="ri-truck-line mt-1"></i></h1>
-          <div>
-            <p className='text-xs text-slate-500 font-thin my-2 lg:text-base'>Address</p>
-            <p className='text-sm text-slate-500 font-normal my-2 lg:text-lg'>
-              A-167 wazirabad street no : 9,  behind MCD school Delhi : 110084
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <h1 className='text-slate-600 flex items-center gap-1 font-semibold lg:text-lg'>Need help <i className="ri-question-line"></i></h1>
-          <div>
-            <p className='text-xs text-slate-500 font-thin my-2 flex items-center gap-1 xl:text-base'><i className="ri-questionnaire-fill"></i> Order Issue <i className="ri-arrow-right-up-line"></i></p>
-            <p className='text-xs text-slate-500 font-thin my-2 flex items-center gap-1 xl:text-base'>
-              <i className="ri-truck-line "></i> Delivery Info <i className="ri-arrow-right-up-line"></i>
-            </p>
-            <p className='text-xs text-slate-500 font-thin my-2 flex items-center gap-1 xl:text-base'>
-              <i className="ri-arrow-go-back-line"></i> Returns <i className="ri-arrow-right-up-line"></i>
-            </p>
-          </div>
-
-
-        </div>
-
-        <div>
-          <h1 className='text-slate-600 mt-1 flex items-center gap-1 border-t-2 border-slate-300 font-semibold lg:text-lg'>Order Summary</h1>
-          <div className='flex justify-between items-center border-b-2 border-slate-300'>
-            <p className='text-sm text-slate-500 font-thin my-2 lg:text-base'>Subtotal</p>
-            <p>₹299</p>
-          </div>
-          <div className='flex justify-between items-center'>
-            <p className='text-sm text-slate-500 font-thin my-2 lg:text-base'>Total</p>
-            <p>₹299</p>
-          </div>
-
-
-        </div>
-      </div>
     </div>
   )
 }
