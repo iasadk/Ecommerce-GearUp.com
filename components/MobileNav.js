@@ -25,6 +25,7 @@ const MobileNav = ({ setIsCart, isCart, setIsSideNav, isSideNav }) => {
         <Link href="/setting" className=" text-black">
           <span className="text-2xl  text-black hover:cursor-pointer hover:text-emerald-900  transition-all delay-150 ease-in px-2 py-1 flex item-center  " ><i className="ri-user-fill"></i></span>
         </Link>
+        
       </div>
     </div>
 

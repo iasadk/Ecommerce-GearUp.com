@@ -83,7 +83,7 @@ function MyApp({ Component, pageProps }) {
       })
     }
     if (!isPresent) {
-      console.log(`first`)
+      // console.log(`first`)
       newCartItem = {
         itemId,
         itemName,
