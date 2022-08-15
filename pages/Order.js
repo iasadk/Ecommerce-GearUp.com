@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import OrderWrapper from '../components/OrderWrapper'
 import { AppContext } from './_app'
 var jwt = require('jsonwebtoken');
+import Image from 'next/image'
 const Order = () => {
   const { userData } = useContext(AppContext)
   const [orders, setOrders] = useState([])
@@ -20,14 +21,15 @@ const Order = () => {
       //POST request with body equal on data in JSON format
       fetch('http://localhost:3000/api/getOrders', {
         method: 'POST',
-        "headers"  :{
-          "Content-Type" : "application/json"
+        "headers": {
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({ "email": userDataObj.email }),
       })
         .then((response) => response.json())
         //Then with the data from the response in JSON...
         .then((data) => {
+          // console.log(data)
           setOrders(data)
         })
         //Then with the error genereted...
@@ -40,13 +42,16 @@ const Order = () => {
   }, [])
   return (
     <div>
-      {orders.length!==0 && orders.orders.map((order,idx)=>{
-        return(
-          <OrderWrapper key={idx} order={order}/>
+      {orders?.orders ? orders.orders.map((order, idx) => {
+        return (
+          <OrderWrapper key={idx} order={order} />
         )
-      })}
+      })
+        : <div className='w-full h-screen text-center text-4xl font-Poppins font-semibold flex flex-col items-center justify-center'>No order is placed from this account
+          <i class="ri-robot-line text-emerald-200 text-9xl font-thin mt-6"></i>
+        </div>
+      }
 
-      {orders.length==0 && <div>No order is placed from this account</div>}
 
     </div>
   )

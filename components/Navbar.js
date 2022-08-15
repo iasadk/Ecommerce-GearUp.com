@@ -56,11 +56,13 @@ const Navbar = () => {
                         </Dropdown.Header>
                         <Dropdown.Item>
                             <Link href="/Order">
-                            Orders
+                                Orders
                             </Link>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            Settings
+                            <Link href="/setting">
+                                Settings
+                            </Link>
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={() => {

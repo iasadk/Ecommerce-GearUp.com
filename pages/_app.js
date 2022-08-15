@@ -152,7 +152,7 @@ function MyApp({ Component, pageProps }) {
     setIsQtyChange(true);
   }
   return <>
-    <AppContext.Provider value={{ addToCart, cart, clearCart, increaseQty, decreaseQty, subTotal, isLogin, userData, handleLogout, setIsLogin, setCart }}>
+    <AppContext.Provider value={{ addToCart, cart, clearCart, increaseQty, decreaseQty, subTotal, isLogin, userData, handleLogout, setIsLogin, setCart, setSubTotal }}>
       <Navbar />
       <Component {...pageProps} />
       <Footer />

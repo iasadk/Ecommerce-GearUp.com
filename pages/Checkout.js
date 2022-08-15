@@ -11,7 +11,7 @@ import Router from 'next/router';
 
 const Checkout = () => {
 
-  const { cart, subTotal, userData, setCart } = useContext(AppContext)
+  const { cart, subTotal, userData, setCart, setSubTotal } = useContext(AppContext)
   const [isChecked, setIsChecked] = useState(false)
   const [estimatedTime, setEstimatedTime] = useState("")
   const [day, setDay] = useState("")
@@ -34,7 +34,8 @@ const Checkout = () => {
       return;
     }
     else {
-      console.log(cart)
+      // console.log(cart)
+      console.log("")
 
     }
   }, [])
@@ -88,6 +89,7 @@ const Checkout = () => {
       })
       // console.log(`working`)
       setCart([]);
+      setSubTotal(0)
       localStorage.removeItem("Cart")
       orderPlaced();
       Router.push("http://localhost:3000/Order");
