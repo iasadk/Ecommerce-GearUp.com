@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
 import { AppContext } from './_app';
+import Image from 'next/future/image'
 
 const Login = () => {
 
@@ -28,10 +29,10 @@ const Login = () => {
   const LoginSuccesfull = () => toast.success("Login Successfully ");
   const LoginFailed = () => toast.error("Invalid Credentials");
   const emailFailed = () => toast.error("Email Not exist. Please Sign Up");
-  const alreadyLogin = ()=>toast.warning("Sorry, but already Logged in");
+  const alreadyLogin = () => toast.warning("Sorry, but already Logged in");
 
 
-  const { setIsLogin} = useContext(AppContext)
+  const { setIsLogin } = useContext(AppContext)
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
@@ -84,12 +85,12 @@ const Login = () => {
         <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
           <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0 flex">
             <div className=' flex justify-end mr-1 relative '>
-              <img src="https://assets.bonkerscorner.com/uploads/2022/08/30103929/Black-Ruffle-It-Up-Oversized-T-shirt_1-768x1152.jpg" alt="Men-collection" className='w-full ' />
-              <img src="/img-holders-top.svg" alt="holders" className='absolute top-0 left-0 w-[20px] lg:w-[30px]' />
+              <Image src="https://assets.bonkerscorner.com/uploads/2022/08/30103929/Black-Ruffle-It-Up-Oversized-T-shirt_1-768x1152.jpg" alt="Men-collection" className='w-full ' width={500} height={500} />
+              <Image src="/img-holders-top.svg" alt="holders" className='absolute top-0 left-0 w-[20px] lg:w-[30px]' width={500} height={500} />
             </div>
             <div className='relative'>
-              <img src="https://assets.bonkerscorner.com/uploads/2022/05/27170951/20220527_093951522_iOS-768x1152.jpg" alt="girls-collection" className='w-full' />
-              <img src="/img-holders-bottom.svg" alt="holders" className='absolute bottom-0 right-0 w-[20px] lg:w-[30px]' />
+              <Image src="https://assets.bonkerscorner.com/uploads/2022/05/27170951/20220527_093951522_iOS-768x1152.jpg" alt="girls-collection" className='w-full' width={500} height={500} />
+              <Image src="/img-holders-bottom.svg" alt="holders" className='absolute bottom-0 right-0 w-[20px] lg:w-[30px]' width={500} height={500} />
 
             </div>
           </div>
@@ -110,11 +111,16 @@ const Login = () => {
                 </div>
                 <input type="password" id="password" name="password" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" {...register("password")} />
               </div>
-              <button className="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Login</button>
-              <div className='flex gap-2'>
+              <div className="flex justify-between items-center flex-wrap" >
+                <button className="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Login</button>
+                <Link href="/ForgotPassword">
+                  <a className='hover:text-slate-900'>forgot password ?? </a>
+                </Link>
+              </div>
+              <div className='flex gap-2 flex-wrap items-center'>
                 <p className='mt-4'>Not have an account ?</p>
                 <Link href="/Signup">
-                  <p className='mt-[15px] flex items-center font-bold text-slate-700 hover:cursor-pointer'>Sign up <i className="ri-login-circle-fill text-emerald-500 mt-[1px] ml-1"></i></p>
+                  <p className='mt-[15px] flex items-center font-bold text-slate-700 hover:cursor-pointer '>Sign up <i className="ri-login-circle-fill text-emerald-500 mt-[1px] ml-1"></i></p>
                 </Link>
               </div>
             </form>

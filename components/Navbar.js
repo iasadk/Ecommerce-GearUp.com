@@ -60,7 +60,7 @@ const Navbar = () => {
                             </Link>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            <Link href="/setting">
+                            <Link href="/Setting">
                                 Settings
                             </Link>
                         </Dropdown.Item>

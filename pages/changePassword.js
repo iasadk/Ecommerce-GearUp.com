@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
 
-const changePassword = () => {
+const ChangePassword = () => {
     const [email, setEmail] = useState("")
 
     useEffect(() => {
@@ -105,4 +105,4 @@ const changePassword = () => {
     )
 }
 
-export default changePassword
+export default ChangePassword

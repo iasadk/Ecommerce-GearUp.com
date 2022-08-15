@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import Image from 'next/future/image';
 const OrderWrapper = ({ order }) => {
 
 
@@ -26,7 +26,7 @@ const OrderWrapper = ({ order }) => {
                         return (
                             <div key={idx} className='flex justify-between bg-slate-200 rounded my-4'>
                                 <div className='flex gap-2 my-4 '>
-                                    <img src={product.imgPath} alt="Tshirt black" className='w-1/4 md:w-1/6' />
+                                    <Image src={product.imgPath} alt="Tshirt black" className='w-1/4 md:w-1/6' width={500} height={500}/>
                                     <div className='text-slate-500 flex flex-col gap-3 md:justify-end'>
                                         <p className='text-lg font-normal '>{product.productName}</p>
                                         <div className='flex gap-2 text-xs font-thin'>

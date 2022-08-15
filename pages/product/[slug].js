@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import connectDB from "../../Middleware/MongooseConnect"
 import Product from "../../models/Product"
+import Image from 'next/future/image'
 
 const Slug = ({ product }) => {
   const router = useRouter();
@@ -74,7 +75,7 @@ const Slug = ({ product }) => {
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-12 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto md:px-36 lg:px-10 object-cover object-top rounded" src={product.imgPath} />
+            <Image alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto md:px-36 lg:px-10 object-cover object-top rounded" src={product.imgPath} width={500} height={500}/>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">{product.category}</h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.productName}</h1>

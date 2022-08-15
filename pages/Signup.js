@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
+import Image from 'next/future/image';
 
 const Signup = () => {
   const schema = yup.object().shape({
@@ -78,12 +79,12 @@ const Signup = () => {
         <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
           <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0 flex">
             <div className=' flex justify-end mr-1 relative '>
-              <img src="https://assets.bonkerscorner.com/uploads/2022/02/02144601/Bonkerscorner_billie_eilish_illustration_ost_248-768x1152.jpg" alt="Men-collection" className='w-full ' />
-              <img src="/img-holders-top.svg" alt="holders" className='absolute top-0 left-0 w-[20px] lg:w-[30px]' />
+              <Image src="https://assets.bonkerscorner.com/uploads/2022/02/02144601/Bonkerscorner_billie_eilish_illustration_ost_248-768x1152.jpg" alt="Men-collection" className='w-full ' width={500} height={500} />
+              <Image src="/img-holders-top.svg" alt="holders" className='absolute top-0 left-0 w-[20px] lg:w-[30px]' width={500} height={500} />
             </div>
             <div className='relative'>
-              <img src="https://assets.bonkerscorner.com/uploads/2022/06/11151329/Bonkerscorner_No-drugs_ost_6-768x1152.jpg" alt="girls-collection" className='w-full' />
-              <img src="/img-holders-bottom.svg" alt="holders" className='absolute bottom-0 right-0 w-[20px] lg:w-[30px]' />
+              <Image src="https://assets.bonkerscorner.com/uploads/2022/06/11151329/Bonkerscorner_No-drugs_ost_6-768x1152.jpg" alt="girls-collection" className='w-full' width={500} height={500} />
+              <Image src="/img-holders-bottom.svg" alt="holders" className='absolute bottom-0 right-0 w-[20px] lg:w-[30px]' width={500} height={500} />
 
             </div>
           </div>

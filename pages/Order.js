@@ -48,7 +48,7 @@ const Order = () => {
         )
       })
         : <div className='w-full h-screen text-center text-4xl font-Poppins font-semibold flex flex-col items-center justify-center'>No order is placed from this account
-          <i class="ri-robot-line text-emerald-200 text-9xl font-thin mt-6"></i>
+          <i className="ri-robot-line text-emerald-200 text-9xl font-thin mt-6"></i>
         </div>
       }
 

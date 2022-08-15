@@ -6,7 +6,7 @@ var jwt = require("jsonwebtoken")
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const changeUsername = () => {
+const ChangeUsername = () => {
     const [currentName, setCurrentName] = useState("")
     const [email, setEmail] = useState("")
 
@@ -94,4 +94,4 @@ const changeUsername = () => {
     )
 }
 
-export default changeUsername
+export default ChangeUsername
