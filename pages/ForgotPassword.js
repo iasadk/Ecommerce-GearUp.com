@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
 import Loader from '../components/Loader';
+import Head from 'next/head';
 
 const ForgotPassword = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -65,8 +66,10 @@ const ForgotPassword = () => {
     return (
         <div className='p-2 md:w-8/12 mx-auto h-screen'>
             <ToastContainer autoClose={2000} />
-
-            {isLoading ? <Loader /> :
+            <Head>
+                <title>Gearup | Forgot Password</title>
+            </Head>
+            {isLoading ? <Loader msg="Preparing Email...."/> :
                 <div>
                     <div className='text-xl font-Poppins font-bold text-center mb-8 md:text-3xl my-8' >
                         <h1 >Forgot Password</h1>

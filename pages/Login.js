@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup'
@@ -8,8 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
 import { AppContext } from './_app';
 import Image from 'next/future/image'
-
+import Head from 'next/head';
+import Loader from '../components/Loader';
+var jwt = require("jsonwebtoken")
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false)
 
 
   const schema = yup.object().shape({
@@ -30,19 +33,28 @@ const Login = () => {
   const LoginFailed = () => toast.error("Invalid Credentials");
   const emailFailed = () => toast.error("Email Not exist. Please Sign Up");
   const alreadyLogin = () => toast.warning("Sorry, but already Logged in");
+  const falseToken = () => toast.error("Malicious Activity : Fake Token detected")
+
 
 
   const { setIsLogin } = useContext(AppContext)
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
+      try {
+        jwt.verify(sessionStorage.getItem("token"), process.env.NEXT_PUBLIC_SECRET_KEY_JWT)
+        alreadyLogin();
+
+      } catch (error) {
+        falseToken();
+      }
       Router.push("http://localhost:3000/")
-      alreadyLogin();
       return;
     }
   }, [])
   const onSubmit = (data) => {
     // console.log(data)
+    setIsLoading(true);
     //POST request with body equal on data in JSON format
     fetch('http://localhost:3000/api/login', {
       method: 'POST',
@@ -54,7 +66,9 @@ const Login = () => {
       .then((response) => response.json())
       //Then with the data from the response in JSON...
       .then((data) => {
-        console.log(data)
+        // console.log(data)
+        setIsLoading(false);
+
         if (data.message == true) {
           sessionStorage.setItem("token", data.token);
           LoginSuccesfull();
@@ -73,6 +87,8 @@ const Login = () => {
       })
       //Then with the error genereted...
       .catch((error) => {
+        setIsLoading(false);
+
         console.error('Error:', error);
       });
   }
@@ -80,8 +96,11 @@ const Login = () => {
   return (
     <div className='w-10/12 mx-auto'>
       <ToastContainer autoClose={1000} />
-
-      <section className="text-gray-600 body-font ">
+      <Head>
+        <title>Gearup | Login</title>
+      </Head>
+      {isLoading && <Loader msg="Loading...." />}
+      {!isLoading && <section className="text-gray-600 body-font ">
         <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
           <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0 flex">
             <div className=' flex justify-end mr-1 relative '>
@@ -128,7 +147,7 @@ const Login = () => {
           </div>
 
         </div>
-      </section>
+      </section>}
     </div>
   )
 }

@@ -6,6 +6,7 @@ var jwt = require("jsonwebtoken")
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
+import Head from 'next/head';
 
 const ChangePassword = () => {
     const [email, setEmail] = useState("")
@@ -49,7 +50,7 @@ const ChangePassword = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({"email": email, "password": data.oldPassword, "newPassword" : data.newPassword })
+            body: JSON.stringify({ "email": email, "password": data.oldPassword, "newPassword": data.newPassword })
         })
             .then(res => res.json())
             .then(data => {
@@ -58,7 +59,7 @@ const ChangePassword = () => {
                 }
                 else if (data.message == true) {
                     good()
-                    Router.push("http://localhost:3000/setting")
+                    Router.push("http://localhost:3000/Setting")
                 }
                 else {
                     serverSideError()
@@ -71,7 +72,9 @@ const ChangePassword = () => {
     return (
         <div className='p-2 md:w-8/12 mx-auto h-screen'>
             <ToastContainer autoClose={1000} />
-
+            <Head>
+                <title>Gearup | Reset Password</title>
+            </Head>
             <div className='text-xl font-Poppins font-bold text-center mb-8 md:text-3xl my-8' >
                 <h1 >Update Pasword</h1>
             </div>

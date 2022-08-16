@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import React, { useRef, useState, useContext } from 'react'
 import { AppContext } from '../_app'
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,7 +14,7 @@ const Slug = ({ product }) => {
   const wishListRef = useRef(null);
   const [isInvalid, setIsInvalid] = useState(false)
   const [isValid, setIsValid] = useState(false)
-  const { addToCart, isLogin} = useContext(AppContext)
+  const { addToCart, isLogin } = useContext(AppContext)
   const [selectedOption, setSelectedOption] = useState('S')
 
   const toggleHeart = () => {
@@ -67,7 +67,7 @@ const Slug = ({ product }) => {
     }
   }
 
-  const handleSelect = (e)=>{
+  const handleSelect = (e) => {
     setSelectedOption(e.target.value)
   }
   return (
@@ -75,7 +75,7 @@ const Slug = ({ product }) => {
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-12 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <Image alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto md:px-36 lg:px-10 object-cover object-top rounded" src={product.imgPath} width={500} height={500}/>
+            <Image alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto md:px-36 lg:px-10 object-cover object-top rounded" src={product.imgPath} width={500} height={500} />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">{product.category}</h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.productName}</h1>
@@ -111,7 +111,7 @@ const Slug = ({ product }) => {
                 <div className="flex ml-6 items-center">
                   <span className="mr-3">Size</span>
                   <div className="relative">
-                    <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-500 text-base pl-3 pr-10" onChange={(e)=>handleSelect(e)}>
+                    <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-green-500 text-base pl-3 pr-10" onChange={(e) => handleSelect(e)}>
                       {product.size.map((s, i) => {
                         return (
                           <option key={i} value={s}>{s}</option>
@@ -128,9 +128,12 @@ const Slug = ({ product }) => {
               </div>
               <div className="flex flex-wrap">
                 <span className="title-font font-medium text-2xl text-gray-900">₹{product.price}.00</span>
-                <button className="flex ml-auto md:ml-4 text-white bg-green-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-green-600 rounded">Buy Now</button>
-                <button className={`flex ml-auto md:ml-4 text-white bg-green-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-green-600 rounded ${isLogin ? '' : "pointer-events-none opacity-40"}` } onClick={() => {
-                  addToCart(product._id, product.productName, product.price,1, product.color, product.category, selectedOption, product.imgPath);
+                <button className="flex ml-auto md:ml-4 text-white bg-green-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-green-600 rounded" onClick={() => {
+                  addToCart(product._id, product.productName, product.price, 1, product.color, product.category, selectedOption, product.imgPath);
+                  Router.push("http://localhost:3000/Checkout");
+                }}>Buy Now</button>
+                <button className={`flex ml-auto md:ml-4 text-white bg-green-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-green-600 rounded ${isLogin ? '' : "pointer-events-none opacity-40"}`} onClick={() => {
+                  addToCart(product._id, product.productName, product.price, 1, product.color, product.category, selectedOption, product.imgPath);
                   notify();
                 }}>Add to Cart</button>
                 <ToastContainer autoClose={1000} />

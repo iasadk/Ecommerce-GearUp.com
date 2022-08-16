@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
 import Image from 'next/future/image';
-
+import Head from 'next/head'
 const Signup = () => {
   const schema = yup.object().shape({
     userName: yup.string().required("Full Name is required"),
@@ -74,7 +74,9 @@ const Signup = () => {
   return (
     <div className='w-10/12 mx-auto'>
       <ToastContainer autoClose={1000} />
-
+      <Head>
+        <title>Gearup | Sign Up</title>
+      </Head>
       <section className="text-gray-600 body-font ">
         <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
           <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0 flex">

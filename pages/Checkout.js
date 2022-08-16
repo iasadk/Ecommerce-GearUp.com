@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from 'next/router';
-
+import Head from 'next/head';
 
 const Checkout = () => {
 
@@ -75,7 +75,7 @@ const Checkout = () => {
     let email = userData.email;
     let products = [];
     cart.forEach((order) => {
-      products.push({ "productId": order.itemId, "quantity": order.itemQty, "price" : order.itemPrice, "size" : order.itemSize, "color" : order.itemColor, "imgPath" : order.imgPath, "productName" : order.itemName})
+      products.push({ "productId": order.itemId, "quantity": order.itemQty, "price": order.itemPrice, "size": order.itemSize, "color": order.itemColor, "imgPath": order.imgPath, "productName": order.itemName })
     })
     let newData = { ...data, products, "amount": subTotal, userEmail: email, estimatedTime }
     if (isChecked) {
@@ -93,7 +93,7 @@ const Checkout = () => {
       localStorage.removeItem("Cart")
       orderPlaced();
       Router.push("http://localhost:3000/Order");
-      
+
 
     }
     else {
@@ -107,7 +107,9 @@ const Checkout = () => {
   return (
     <div className='w-full md:w-8/12 mx-auto transition-all delay-150 ease-in-out'>
       <ToastContainer autoClose={1000} />
-
+      <Head>
+        <title>Gearup | Checkout Page</title>
+      </Head>
       <h1 className='text-3xl text-center font-semibold text-slate-800 my-4'>Checkout</h1>
       <form className='p-4' onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col mb-4'>
@@ -115,7 +117,7 @@ const Checkout = () => {
           {errors.fullName?.message && <span className='text-xs mb-2 text-red-500'>{`${errors.fullName.message}`}</span>}
           <input type="text" className='border-b-2 border-gray-300 text-lg focus:outline-none focus:border-emerald-400 bg-white' placeholder='Johan Libert' name='fullName' {...register("fullName")} />
         </div>
-        
+
         <div className='flex flex-col mb-4'>
           <label htmlFor="address" className='text-md font-semibold text-slate-800 mb-2'>Delivery Address</label>
           {errors.address?.message && <span className='text-xs mb-2 text-red-500'>{`${errors.address.message}`}</span>}
@@ -156,7 +158,7 @@ const Checkout = () => {
           <div>
             {cart.map((item, idx) => {
               return (
-                <CartItem key={idx} itemNo={idx + 1} itemId={item.itemId} itemName={item.itemName} itemCategory={item.itemCategory} itemColor={item.itemColor} itemPrice={item.itemPrice} itemQty={item.itemQty} itemSize={item.itemSize}/>
+                <CartItem key={idx} itemNo={idx + 1} itemId={item.itemId} itemName={item.itemName} itemCategory={item.itemCategory} itemColor={item.itemColor} itemPrice={item.itemPrice} itemQty={item.itemQty} itemSize={item.itemSize} />
               )
             })}
           </div>

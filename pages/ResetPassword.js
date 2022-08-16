@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Router, { useRouter } from 'next/router';
 var jwt = require("jsonwebtoken")
 import Link from 'next/link'
-
+import Head from 'next/head';
 const ResetPassword = () => {
     const [email, setEmail] = useState("")
     const [isExpired, setIsexpired] = useState(false);
@@ -25,7 +25,7 @@ const ResetPassword = () => {
             setIsexpired(true);
         }
 
-    }, [router.isReady])
+    }, [router.isReady]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const schema = yup.object().shape({
         newPassword: yup.string().matches(
@@ -74,7 +74,9 @@ const ResetPassword = () => {
     return (
         <div className='p-2 md:w-8/12 mx-auto h-screen'>
             <ToastContainer autoClose={1000} />
-
+            <Head>
+                <title>Gearup | Reset Password</title>
+            </Head>
             {isExpired ?
                 <div className="h-screen flex justify-center items-center flex-col">
                     <p className='text-5xl font-Poppins font-semibold text-emerald-500'>Request Expired.</p>

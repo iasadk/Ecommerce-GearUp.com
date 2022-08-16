@@ -1,12 +1,14 @@
 import Router from 'next/router'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import OrderWrapper from '../components/OrderWrapper'
-import { AppContext } from './_app'
 var jwt = require('jsonwebtoken');
-import Image from 'next/image'
+import Head from 'next/head';
+import Loader from '../components/Loader';
+
 const Order = () => {
-  const { userData } = useContext(AppContext)
   const [orders, setOrders] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
 
   useEffect(() => {
 
@@ -17,7 +19,7 @@ const Order = () => {
     else {
       let token = sessionStorage.getItem("token")
       const userDataObj = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET_KEY_JWT);
-
+      setIsLoading(true)
       //POST request with body equal on data in JSON format
       fetch('http://localhost:3000/api/getOrders', {
         method: 'POST',
@@ -30,10 +32,12 @@ const Order = () => {
         //Then with the data from the response in JSON...
         .then((data) => {
           // console.log(data)
+          setIsLoading(false)
           setOrders(data)
         })
         //Then with the error genereted...
         .catch((error) => {
+          setIsLoading(false)
           console.error('Error:', error);
         });
 
@@ -42,6 +46,10 @@ const Order = () => {
   }, [])
   return (
     <div>
+      <Head>
+        <title>Gearup | Orders</title>
+      </Head>
+      {isLoading ? <Loader msg="Fetching Orders"/> : ""}
       {orders?.orders ? orders.orders.map((order, idx) => {
         return (
           <OrderWrapper key={idx} order={order} />

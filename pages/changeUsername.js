@@ -5,11 +5,21 @@ import { yupResolver } from '@hookform/resolvers/yup'
 var jwt = require("jsonwebtoken")
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Head from 'next/head';
+import Loader from '../components/Loader';
+import Router, { useRouter } from 'next/router';
 const ChangeUsername = () => {
     const [currentName, setCurrentName] = useState("")
     const [email, setEmail] = useState("")
-
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter();
+    useEffect(() => {
+        if (!router.isReady) {
+            setIsLoading(true)
+        } else {
+            setIsLoading(false)
+        }
+    }, [router.isReady])
     useEffect(() => {
         if (sessionStorage.getItem("token")) {
             let token = sessionStorage.getItem("token")
@@ -37,6 +47,7 @@ const ChangeUsername = () => {
 
     const onSubmit = (data) => {
         console.log(data);
+        setIsLoading(true)
         fetch("http://localhost:3000/api/updateUserInfo", {
             method: "POST",
             headers: {
@@ -46,49 +57,63 @@ const ChangeUsername = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if(data.message=="wrong"){
+                setIsLoading(false)
+
+                if (data.message == "wrong") {
                     error()
                 }
-                else if(data.message==true){
+                else if (data.message == true) {
                     good()
+                    Router.push("http://localhost:3000/Setting")
                 }
-                else{
+                else {
                     serverSideError()
+
+
                 }
             }).catch(err => {
-                console.log(err)
+                setIsLoading(false)
+                serverSideError()
+
+
             })
     }
     return (
         <div className='p-2 md:w-8/12 mx-auto h-screen'>
             <ToastContainer autoClose={2000} />
+            <Head>
+                <title>Gearup | Change Username</title>
+            </Head>
+            {isLoading && <Loader msg="Loading..." />}
+            {!isLoading && <div>
 
-            <div className='text-xl font-Poppins font-bold text-center mb-8 md:text-3xl my-8' >
-                <h1 >Update UserName</h1>
-            </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="bg-slate-100 p-2 shadow-md">
-                <div className="relative mb-4">
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="username" className="leading-7 text-sm text-gray-600">Current username</label>
-                    </div>
-                    <input type="text" id="currentUserName" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder={currentName} disabled />
+                <div className='text-xl font-Poppins font-bold text-center mb-8 md:text-3xl my-8' >
+                    <h1 >Update UserName</h1>
                 </div>
-                <div className="relative mb-4">
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="username" className="leading-7 text-sm text-gray-600">New username</label>
-                        {errors.newUserName?.message && <span className='text-xs mb-2 text-red-500'>{`${errors.newUserName.message}`}</span>}
+                <form onSubmit={handleSubmit(onSubmit)} className="bg-slate-100 p-2 shadow-md">
+                    <div className="relative mb-4">
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="username" className="leading-7 text-sm text-gray-600">Current username</label>
+                        </div>
+                        <input type="text" id="currentUserName" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder={currentName} disabled />
                     </div>
-                    <input type="text" id="newUserName" name="newUserName" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" {...register("newUserName")} />
-                </div>
-                <div className="relative mb-4">
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="username" className="leading-7 text-sm text-gray-600">Password</label>
-                        {errors.password?.message && <span className='text-xs mb-2 text-red-500'>{`${errors.password.message}`}</span>}
+                    <div className="relative mb-4">
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="username" className="leading-7 text-sm text-gray-600">New username</label>
+                            {errors.newUserName?.message && <span className='text-xs mb-2 text-red-500'>{`${errors.newUserName.message}`}</span>}
+                        </div>
+                        <input type="text" id="newUserName" name="newUserName" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" {...register("newUserName")} />
                     </div>
-                    <input type="password" id="password" name="password" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" {...register("password")} />
-                </div>
-                <button className="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Update</button>
-            </form>
+                    <div className="relative mb-4">
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="username" className="leading-7 text-sm text-gray-600">Password</label>
+                            {errors.password?.message && <span className='text-xs mb-2 text-red-500'>{`${errors.password.message}`}</span>}
+                        </div>
+                        <input type="password" id="password" name="password" className="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" {...register("password")} />
+                    </div>
+                    <button className="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Update</button>
+                </form>
+            </div>}
 
         </div>
     )

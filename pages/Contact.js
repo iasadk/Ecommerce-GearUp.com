@@ -1,8 +1,11 @@
 import React from 'react'
-
+import Head from 'next/head';
 const Contact = () => {
   return (
     <div className=' bg-emerald-50 w-full md:w-7/12 mx-auto my-12 rounded-lg'>
+      <Head>
+        <title>Gearup | Contact us</title>
+      </Head>
       <section className="text-gray-600 body-font relative ">
         <div className="container px-5  mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
@@ -14,13 +17,13 @@ const Contact = () => {
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label htmlFor="name" className="leading-7 text-sm text-gray-600">Name</label>
-                  <input type="text" id="name" name="name" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+                  <input type="text" id="name" name="name" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                 </div>
               </div>
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email</label>
-                  <input type="email" id="email" name="email" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+                  <input type="email" id="email" name="email" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                 </div>
               </div>
               <div className="p-2 w-full">
@@ -35,7 +38,7 @@ const Contact = () => {
               <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
                 <a className="text-green-500">geraUp.bussiness@email.com</a>
                 <p className="leading-normal my-5">49 Smith St.
-                  <br/>Saint Cloud, MN 56301</p>
+                  <br />Saint Cloud, MN 56301</p>
                 <span className="inline-flex">
                   <a className="text-gray-500">
                     <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">

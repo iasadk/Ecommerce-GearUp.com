@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Router from 'next/router'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
+
 const Setting = () => {
     const needToLogin = () => toast.warning("Please login to get access");
 
@@ -16,7 +18,9 @@ const Setting = () => {
     return (
         <div className="w-full font-Poppins h-screen">
             <ToastContainer autoClose={1000} />
-
+            <Head>
+                <title>Gearup | Setting</title>
+            </Head>
             <div className='my-4'>
                 <h1 className='text-xl text-center font-bold'>Hello, Asad Khan</h1>
             </div>

@@ -2,10 +2,14 @@ import React from 'react'
 import ProductCard from '../components/productCard'
 import connectDB from "../Middleware/MongooseConnect"
 import Product from "../models/Product";
+import Head from 'next/head';
 
 const Mugs = ({products}) => {
   return (
     <div>
+    <Head>
+      <title>Gearup | Mugs</title>
+    </Head>
       <section className="text-emerald-600 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -m-4 justify-center md:justify-start">

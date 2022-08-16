@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar'
 import '../styles/globals.css'
 export const AppContext = createContext();
 var jwt = require('jsonwebtoken');
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
   const [cart, setCart] = useState([]);
@@ -14,14 +16,20 @@ function MyApp({ Component, pageProps }) {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState({});
 
+  const falseToken = ()  =>toast.error("Malicious Activity : Fake Token detected")
   useEffect(() => {
     let token;
     if (sessionStorage.getItem("token")) {
       token = sessionStorage.getItem("token")
-      const userDataObj = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET_KEY_JWT);
-
-      setUserData(userDataObj);
-      setIsLogin(true);
+      try {
+        const userDataObj = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET_KEY_JWT);
+        setUserData(userDataObj);
+        setIsLogin(true);
+      } catch (error) {
+        falseToken();
+        sessionStorage.clear();
+        Router.push("http://localhost:3000/")
+      }
     }
     else {
       return
@@ -154,6 +162,7 @@ function MyApp({ Component, pageProps }) {
   return <>
     <AppContext.Provider value={{ addToCart, cart, clearCart, increaseQty, decreaseQty, subTotal, isLogin, userData, handleLogout, setIsLogin, setCart, setSubTotal }}>
       <Navbar />
+      <ToastContainer autoClose={2000} />
       <Component {...pageProps} />
       <Footer />
     </AppContext.Provider>
